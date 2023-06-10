@@ -10,7 +10,7 @@ class encn_Cambridge {
     let locale = await api.locale();
     if (locale.indexOf("CN") != -1) return "剑桥英汉双解(简体)";
     if (locale.indexOf("TW") != -1) return "劍橋英漢雙解(簡體)";
-    return "Cambridge EN->CN Dictionary (SC)";
+    return "Cambridge EN->CN Dictionary (hello)";
   }
 
   setOptions(options) {
@@ -20,7 +20,7 @@ class encn_Cambridge {
 
   async findTerm(word) {
     this.word = word;
-    let promises = [this.findCambridge(word), this.findYoudao(word)];
+    let promises = [this.findCambridge(word)];
     let results = await Promise.all(promises);
     return [].concat(...results).filter((x) => x);
   }
