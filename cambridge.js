@@ -7,9 +7,6 @@ class encn_Cambridge {
   }
 
   async displayName() {
-    let locale = await api.locale();
-    if (locale.indexOf("CN") != -1) return "剑桥英汉双解(简体)";
-    if (locale.indexOf("TW") != -1) return "劍橋英漢雙解(簡體)";
     return "cambridge";
   }
 
@@ -28,6 +25,21 @@ class encn_Cambridge {
   async findCambridge(word) {
     let notes = [];
     if (!word) return notes; // return empty notes
+
+    // create note id
+    function create_UUID() {
+      var dt = new Date().getTime();
+      var uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+        /[xy]/g,
+        function (c) {
+          var r = (dt + Math.random() * 16) % 16 | 0;
+          dt = Math.floor(dt / 16);
+          return (c == "x" ? r : (r & 0x3) | 0x8).toString(16);
+        }
+      );
+      return uuid;
+    }
+    let noteId = create_UUID();
 
     function T(node) {
       if (!node) return "";
@@ -49,7 +61,6 @@ class encn_Cambridge {
     for (const entry of entries) {
       let definitions = [];
       let audios = [];
-
       let expression = T(entry.querySelector(".headword"));
       let reading = "";
       let readings = entry.querySelectorAll(".pron .ipa");
@@ -117,7 +128,7 @@ class encn_Cambridge {
             if (examps.length > 0 && this.maxexample > 0) {
               definition += '<ul class="sents">';
               for (const [index, examp] of examps.entries()) {
-                if (index > this.maxexample - 1) break; // to control only 2 example sentence.
+                if (index > this.maxexample - 2) break; // to control only 2 example sentence.
                 let eng_examp = T(examp.querySelector(".eg"));
                 let chn_examp = T(examp.querySelector(".trans"));
                 definition += `<li class='sent'><span class='eng_sent'>${eng_examp.replace(
