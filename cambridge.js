@@ -31,7 +31,7 @@ class encn_Cambridge {
       var dt = new Date().getTime();
       var uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
         /[xy]/g,
-        function(c) {
+        function (c) {
           var r = (dt + Math.random() * 16) % 16 | 0;
           dt = Math.floor(dt / 16);
           return (c == "x" ? r : (r & 0x3) | 0x8).toString(16);
@@ -109,7 +109,7 @@ class encn_Cambridge {
             if (examps.length > 0 && this.maxexample > 0) {
               definition += '<ul class="sents">';
               for (const [index, examp] of examps.entries()) {
-                if (index > this.maxexample - 2) break; // to control only 2 example sentence.
+                if (index > this.maxexample) break; // to control only 2 example sentence.
                 let eng_examp = T(examp.querySelector(".eg"));
                 let chn_examp = T(examp.querySelector(".trans"));
                 definition += `<li class='sent'><span class='eng_sent'>${eng_examp.replace(
