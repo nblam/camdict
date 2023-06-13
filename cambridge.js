@@ -31,7 +31,7 @@ class encn_Cambridge {
       var dt = new Date().getTime();
       var uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
         /[xy]/g,
-        function (c) {
+        function(c) {
           var r = (dt + Math.random() * 16) % 16 | 0;
           dt = Math.floor(dt / 16);
           return (c == "x" ? r : (r & 0x3) | 0x8).toString(16);
@@ -60,30 +60,11 @@ class encn_Cambridge {
     let entries = doc.querySelectorAll(".pr .entry-body__el") || [];
     for (const entry of entries) {
       let definitions = [];
-      let audios = [noteId];
+      let audios = [];
       let expression = T(entry.querySelector(".headword"));
-      let reading = "";
-      let readings = entry.querySelectorAll(".pron .ipa");
-      if (readings) {
-        let reading_uk = T(readings[0]);
-        let reading_us = T(readings[1]);
-        reading =
-          reading_uk || reading_us
-            ? `UK[${reading_uk}] US[${reading_us}] `
-            : "";
-      }
+      let reading = noteId;
       let pos = T(entry.querySelector(".posgram"));
       pos = pos ? `<span class='pos'>${pos}</span>` : "";
-      // audios[0] = entry.querySelector(".uk.dpron-i source");
-      // audios[0] = audios[0]
-      //   ? "https://dictionary.cambridge.org" + audios[0].getAttribute("src")
-      //   : "";
-      // //audios[0] = audios[0].replace('https', 'http');
-      // audios[1] = entry.querySelector(".us.dpron-i source");
-      // audios[1] = audios[1]
-      //   ? "https://dictionary.cambridge.org" + audios[1].getAttribute("src")
-      //   : "";
-      //audios[1] = audios[1].replace('https', 'http');
 
       let sensbodys = entry.querySelectorAll(".sense-body") || [];
       for (const sensbody of sensbodys) {
